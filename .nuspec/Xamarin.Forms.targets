@@ -8,6 +8,7 @@
 	</PropertyGroup>
 
 	<UsingTask TaskName="Xamarin.Forms.Build.Tasks.XamlGTask" AssemblyFile="$(XFBuildTasksDirectory)Xamarin.Forms.Build.Tasks.dll" />
+	<UsingTask TaskName="Xamarin.Forms.Build.Tasks.CssGTask" AssemblyFile="$(XFBuildTasksDirectory)Xamarin.Forms.Build.Tasks.dll"/>
 	<UsingTask TaskName="Xamarin.Forms.Build.Tasks.XamlCTask" AssemblyFile="$(XFBuildTasksDirectory)Xamarin.Forms.Build.Tasks.dll" />
 	<UsingTask TaskName="Xamarin.Forms.Build.Tasks.GetTasksAbi" AssemblyFile="$(XFBuildTasksDirectory)Xamarin.Forms.Build.Tasks.dll" />
 
@@ -41,7 +42,7 @@
 		</GetTasksAbi >
 
 		<PropertyGroup>
-			<_XFTasksExpectedAbi>3</_XFTasksExpectedAbi>
+			<_XFTasksExpectedAbi>4</_XFTasksExpectedAbi>
 		</PropertyGroup>
 
 		<Error
@@ -85,5 +86,24 @@
 			DebugSymbols = "$(DebugSymbols)"
 			DebugType = "$(DebugType)"
 			KeepXamlResources = "$(XFKeepXamlResources)" />
+	</Target>
+
+	<!-- CssG -->
+		<PropertyGroup>
+		<CoreCompileDependsOn>
+			CssG;
+			$(CoreCompileDependsOn);
+		</CoreCompileDependsOn>
+	</PropertyGroup>
+
+	<Target Name="CssG">
+		<CssGTask
+			XamlFiles="@(EmbeddedResource)" Condition="'%(Extension)' == '.css' AND '$(DefaultLanguageSourceExtension)' == '.cs'"
+			Language = "$(Language)"
+			AssemblyName = "$(AssemblyName)"
+			OutputPath = "$(IntermediateOutputPath)">
+			<Output ItemName="FilesWrite" TaskParameter="GeneratedCodeFiles" />
+			<Output ItemName="Compile" TaskParameter="GeneratedCodeFiles" />
+		</CssGTask>
 	</Target>
 </Project>

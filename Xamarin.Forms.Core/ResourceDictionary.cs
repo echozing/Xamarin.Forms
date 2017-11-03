@@ -84,6 +84,16 @@ namespace Xamarin.Forms
 			}
 		}
 
+		internal IList<StyleSheets.StyleSheet> StyleSheets { get; set; }
+
+		void StyleSheetsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			switch (e.Action) {
+			case NotifyCollectionChangedAction.Add:
+					ValuesChanged?.Invoke(this, ResourcesChangedEventArgs.StyleSheets);
+				break;
+			}
+		}
 		IList<ResourceDictionary> _collectionTrack;
 
 		void MergedDictionaries_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -282,6 +292,13 @@ namespace Xamarin.Forms
 		public void Add(ResourceDictionary mergedResourceDictionary)
 		{
 			MergedDictionaries.Add(mergedResourceDictionary);
+		}
+
+		public void Add(StyleSheets.StyleSheet styleSheet)
+		{
+			StyleSheets = StyleSheets ?? new List<StyleSheets.StyleSheet>(2);
+			StyleSheets.Add(styleSheet);
+			ValuesChanged?.Invoke(this, ResourcesChangedEventArgs.StyleSheets);
 		}
 
 		void OnValueChanged(string key, object value)

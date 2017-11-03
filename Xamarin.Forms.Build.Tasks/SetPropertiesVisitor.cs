@@ -1156,6 +1156,9 @@ namespace Xamarin.Forms.Build.Tasks
 			if (node.XmlType.Name == "ResourceDictionary")
 				return true;
 
+			if (node.XmlType.Name == "StyleSheet")
+				return true;
+
 			throw new XamlParseException("resources in ResourceDictionary require a x:Key attribute", lineInfo);
 		}
 
@@ -1212,7 +1215,7 @@ namespace Xamarin.Forms.Build.Tasks
 				yield break;
 			}
 
-			var nodeTypeRef = node.XmlType.GetTypeReference(module, lineInfo);
+			var nodeTypeRef = context.Variables[node].VariableType;
 			yield return Create(Ldloc, context.Variables[node]);
 			yield return Create(Callvirt,
 				module.ImportReference(
