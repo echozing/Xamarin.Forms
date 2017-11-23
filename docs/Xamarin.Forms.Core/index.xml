@@ -424,6 +424,7 @@
       <Type Name="ViewState" Kind="Enumeration" />
       <Type Name="VisualElement" Kind="Class" />
       <Type Name="VisualElement+FocusRequestArgs" Kind="Class" />
+      <Type Name="VisualElement+VisibilityConverter" Kind="Class" />
       <Type Name="WebNavigatedEventArgs" Kind="Class" />
       <Type Name="WebNavigatingEventArgs" Kind="Class" />
       <Type Name="WebNavigationEvent" Kind="Enumeration" />
@@ -554,6 +555,9 @@
       <Type Name="MasterDetailPage" Kind="Class" />
       <Type Name="Page" Kind="Class" />
       <Type Name="ToolbarPlacement" Kind="Enumeration" />
+    </Namespace>
+    <Namespace Name="Xamarin.Forms.StyleSheets">
+      <Type Name="StyleSheet" Kind="Class" />
     </Namespace>
     <Namespace Name="Xamarin.Forms.Xaml">
       <Type Name="AcceptEmptyServiceProviderAttribute" Kind="Class" />
