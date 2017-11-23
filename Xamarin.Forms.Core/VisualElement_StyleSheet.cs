@@ -11,9 +11,6 @@ namespace Xamarin.Forms
 		IList<string> IStyleSelectable.Classes
 			=> StyleClass;
 
-		string IStyleSelectable.Id
-			=> StyleId;
-
 		BindableProperty IStylable.GetProperty(string key)
 		{
 			StylePropertyAttribute styleAttribute;

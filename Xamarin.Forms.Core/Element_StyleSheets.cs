@@ -15,8 +15,21 @@ namespace Xamarin.Forms
 
 		string IStyleSelectable.Id => StyleId;
 
-		string _styleSelectableName;
-		string IStyleSelectable.Name => _styleSelectableName ?? (_styleSelectableName = GetType().Name);
+		string[] _styleSelectableNameAndBaseNames;
+		string[] IStyleSelectable.NameAndBases {
+			get {
+				if (_styleSelectableNameAndBaseNames == null) {
+					var list = new List<string>();
+					var t = GetType();
+					while (t != typeof(BindableObject)) {
+						list.Add(t.Name);
+						t = t.GetTypeInfo().BaseType;
+					}
+					_styleSelectableNameAndBaseNames = list.ToArray();
+				}
+				return _styleSelectableNameAndBaseNames;
+			}
+		}
 
 		IStyleSelectable IStyleSelectable.Parent => Parent;
 	}

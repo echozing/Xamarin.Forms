@@ -21,22 +21,22 @@ namespace Xamarin.Forms.StyleSheets.UnitTests
 		public void SetUp()
 		{
 			Page = new MockStylable {
-				Name = "Page",
+				NameAndBases = new[] { "Page", "Layout", "VisualElement" },
 				Children = new List<IStyleSelectable> {
 					new MockStylable {
-						Name = "StackLayout",
+						NameAndBases = new[] { "StackLayout", "Layout", "VisualElement" },
 						Children = new List<IStyleSelectable> {
-							new MockStylable {Name = "Label", Classes = new[]{"test"}},				//Label0
-							new MockStylable {Name = "Label"},										//Label1
+							new MockStylable {NameAndBases = new[] { "Label", "VisualElement" }, Classes = new[]{"test"}},				//Label0
+							new MockStylable {NameAndBases = new[] { "Label", "VisualElement" }},										//Label1
 							new MockStylable {														//ContentView0
-								Name = "ContentView",
+								NameAndBases = new[] { "ContentView", "Layout", "VisualElement" },
 								Classes = new[]{"test"},
 								Children = new List<IStyleSelectable> {
-									new MockStylable {Name = "Label", Classes = new[]{"test"}},		//Label2
+									new MockStylable {NameAndBases = new[] { "Label", "VisualElement" }, Classes = new[]{"test"}},		//Label2
 								}
 							},
-							new MockStylable {Name = "Label", Id="foo"},							//Label3
-							new MockStylable {Name = "Label"},										//Label4
+							new MockStylable {NameAndBases = new[] { "Label", "VisualElement" }, Id="foo"},							//Label3
+							new MockStylable {NameAndBases = new[] { "Label", "VisualElement" }},										//Label4
 						}
 					}
 				}
@@ -64,6 +64,7 @@ namespace Xamarin.Forms.StyleSheets.UnitTests
 		[TestCase("stacklayout label.test", true, false, true, false, false, false)]
 		[TestCase("stacklayout  label.test", true, false, true, false, false, false)]
 		[TestCase("stacklayout .test", true, false, true, false, false, true)]
+		[TestCase("stacklayout.test", false, false, false, false, false, false)]
 		[TestCase("*", true, true, true, true, true, true)]
 		[TestCase("#foo", false, false, false, true, false, false)]
 		[TestCase("label#foo", false, false, false, true, false, false)]
@@ -96,6 +97,9 @@ namespace Xamarin.Forms.StyleSheets.UnitTests
 		[TestCase("page>stacklayout contentview>label", false, false, true, false, false, false)]
 		[TestCase("page stacklayout>contentview>label", false, false, true, false, false, false)]
 		[TestCase("page>stacklayout>contentview>label", false, false, true, false, false, false)]
+		[TestCase("visualelement", false, false, false, false, false, false)]
+		[TestCase("^visualelement", true, true, true, true, true, true)]
+		[TestCase("^layout", false, false, false, false, false, true)]
 		public void TestCase(string selectorString, bool label0match, bool label1match, bool label2match, bool label3match, bool label4match, bool content0match)
 		{
 			var selector = Selector.Parse(new CssReader(new StringReader(selectorString)));

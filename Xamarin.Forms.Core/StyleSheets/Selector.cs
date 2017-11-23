@@ -58,6 +58,13 @@ namespace Xamarin.Forms.StyleSheets
 					setCurrentSelector(new Child(), All);
 					reader.SkipWhiteSpaces();
 					break;
+				case '^':				//not in CSS spec
+					reader.Read();
+					var element = reader.ReadIdent();
+					if (element == null)
+					return Invalid;
+					setCurrentSelector(new And(), new Base(element));
+					break;
 				case ' ':
 				case '\t':
 				case '\n':
@@ -75,6 +82,7 @@ namespace Xamarin.Forms.StyleSheets
 									&& c != '>'
 									&& c != ','
 									&& c != '~'
+									&& c != '^'
 									&& c != stopChar);
 						break;
 					}
@@ -181,9 +189,26 @@ namespace Xamarin.Forms.StyleSheets
 			{
 				ElementName = elementName;
 			}
+
 			public string ElementName { get; }
 			public override bool Matches(IStyleSelectable styleable) =>
-				string.Equals(styleable.Name, ElementName, StringComparison.OrdinalIgnoreCase);
+				string.Equals(styleable.NameAndBases[0], ElementName, StringComparison.OrdinalIgnoreCase);
+		}
+
+		sealed class Base : UnarySelector
+		{
+			public Base(string elementName)
+			{
+				ElementName = elementName;
+			}
+
+			public string ElementName { get; }
+			public override bool Matches(IStyleSelectable styleable) {
+				for (var i = 0; i < styleable.NameAndBases.Length; i++)
+					if (string.Equals(styleable.NameAndBases[i], ElementName, StringComparison.OrdinalIgnoreCase))
+						return true;
+				return false;
+			}
 		}
 
 		sealed class Child : Operator

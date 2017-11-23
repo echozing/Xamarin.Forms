@@ -5,7 +5,7 @@ namespace Xamarin.Forms.StyleSheets
 {
 	interface IStyleSelectable
 	{
-		string Name { get; }
+		string[] NameAndBases { get; }
 		string Id { get; }
 		IStyleSelectable Parent { get; }
 		IList<string> Classes { get; }

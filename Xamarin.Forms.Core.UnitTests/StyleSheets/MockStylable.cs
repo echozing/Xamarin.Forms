@@ -8,7 +8,7 @@ namespace Xamarin.Forms.StyleSheets.UnitTests
 		public IEnumerable<IStyleSelectable> Children { get; set; }
 		public IList<string> Classes { get; set; }
 		public string Id { get; set; }
-		public string Name { get; set; }
+		public string[] NameAndBases { get; set; }
 		public IStyleSelectable Parent { get; set; }
 	}
 }
