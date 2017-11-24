@@ -78,17 +78,5 @@ namespace Xamarin.Forms.Core.XamlC
 			}
 			return null;
 		}
-
-		internal static string GetResourceIdForPath(ModuleDefinition module, string path)
-		{
-			foreach (var ca in module.GetCustomAttributes()) {
-				if (!TypeRefComparer.Default.Equals(ca.AttributeType, module.ImportReference(typeof(XamlResourceIdAttribute))))
-					continue;
-				if (ca.ConstructorArguments[1].Value as string != path)
-					continue;
-				return ca.ConstructorArguments[0].Value as string;
-			}
-			return null;
-		}
 	}
 }

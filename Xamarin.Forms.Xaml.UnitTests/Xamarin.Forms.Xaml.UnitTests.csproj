@@ -522,8 +522,11 @@
     <Compile Include="StyleSheet.xaml.cs">
       <DependentUpon>StyleSheet.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SetStyleIdFromXName.xaml.cs" >
+    <Compile Include="SetStyleIdFromXName.xaml.cs">
       <DependentUpon>SetStyleIdFromXName.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InlineCSS.xaml.cs">
+      <DependentUpon>InlineCSS.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -992,6 +995,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="SetStyleIdFromXName.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InlineCSS.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
