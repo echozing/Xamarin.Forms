@@ -88,15 +88,7 @@
 			KeepXamlResources = "$(XFKeepXamlResources)" />
 	</Target>
 
-	<!-- CssG -->
-		<PropertyGroup>
-		<CoreCompileDependsOn>
-			CssG;
-			$(CoreCompileDependsOn);
-		</CoreCompileDependsOn>
-	</PropertyGroup>
-
-	<Target Name="CssG">
+	<Target Name="CssG" BeforeTargets="BeforeCompile">
 		<CssGTask
 			XamlFiles="@(EmbeddedResource)" Condition="'%(Extension)' == '.css' AND '$(DefaultLanguageSourceExtension)' == '.cs'"
 			Language = "$(Language)"
