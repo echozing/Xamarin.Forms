@@ -6,11 +6,18 @@
     <ContentPage.Resources>
         <StyleSheet>
             <![CDATA[
+* {
+    background-color: green;
+}
 label {
     color: pink;
+    background-color: none;
 }
             ]]>
         </StyleSheet>
     </ContentPage.Resources>
-    <Label x:Name="label"/>
+    <StackLayout x:Name="stack">
+        <Label x:Name="label"/>
+        <Button x:Name="button"/>
+    </StackLayout>
 </ContentPage>

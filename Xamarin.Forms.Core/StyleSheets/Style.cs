@@ -64,10 +64,14 @@ namespace Xamarin.Forms.StyleSheets
 				var property = ((IStylable)styleable).GetProperty(decl.Key);
 				if (property == null)
 					continue;
-				object value;
-				if (!convertedValues.TryGetValue(decl, out value))
-					convertedValues[decl] = (value = Convert(decl.Value, property));
-				styleable.SetValue(property, value, fromStyle: true);
+				if (string.Equals(decl.Value, "none", StringComparison.OrdinalIgnoreCase))
+					styleable.ClearValue(property, fromStyle: true);
+				else {
+					object value;
+					if (!convertedValues.TryGetValue(decl, out value))
+						convertedValues[decl] = (value = Convert(decl.Value, property));
+					styleable.SetValue(property, value, fromStyle: true);
+				}
 			}
 
 			foreach (var child in styleable.LogicalChildrenInternal) {

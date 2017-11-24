@@ -32,12 +32,21 @@ namespace Xamarin.Forms.Xaml.UnitTests
 				Device.PlatformServices = null;
 			}
 
-			[TestCase(false)]
-			[TestCase(true)]
+			[TestCase(false), TestCase(true)]
 			public void InlineCSSParsed(bool useCompiledXaml)
 			{
 				var layout = new InlineCSS(useCompiledXaml);
 				Assert.That(layout.label.TextColor, Is.EqualTo(Color.Pink));
+			}
+
+			[TestCase(false), TestCase(true)]
+			public void NoneValue(bool useCompiledXaml)
+			{
+				var layout = new InlineCSS(useCompiledXaml);
+				Assert.That(layout.BackgroundColor, Is.EqualTo(Color.Green));
+				Assert.That(layout.stack.BackgroundColor, Is.EqualTo(Color.Green));
+				Assert.That(layout.button.BackgroundColor, Is.EqualTo(Color.Green));
+				Assert.That(layout.label.BackgroundColor, Is.EqualTo(VisualElement.BackgroundColorProperty.DefaultValue));
 			}
 		}
 	}
