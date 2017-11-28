@@ -68,7 +68,7 @@ namespace Xamarin.Forms
 			if (type != null)
 				_mergedInstance = s_instances.GetValue(type, (key) => (ResourceDictionary)Activator.CreateInstance(key));
 			else
-				_mergedInstance = DependencyService.Get<IResourcesLoader>().CreateResourceDictionary(resourcePath, assembly, lineInfo);
+				_mergedInstance = DependencyService.Get<IResourcesLoader>().CreateFromResource<ResourceDictionary>(resourcePath, assembly, lineInfo);
 			OnValuesChanged(_mergedInstance.ToArray());
 		}
 
