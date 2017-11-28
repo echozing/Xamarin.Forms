@@ -1,6 +1,6 @@
 ﻿namespace Xamarin.Forms.Xaml
 {
-	public interface IConverterOptions
+	interface IConverterOptions
 	{
 		bool IgnoreCase { get; }
 	}
