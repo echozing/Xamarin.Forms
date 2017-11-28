@@ -13,21 +13,22 @@ namespace Xamarin.Forms
 			{
 				double l, t, r, b;
 				string[] thickness = value.Split(',');
-				switch (thickness.Length)
-				{
-					case 1:
-						if (double.TryParse(thickness[0], NumberStyles.Number, CultureInfo.InvariantCulture, out l))
-							return new Thickness(l);
-						break;
-					case 2:
-						if (double.TryParse(thickness[0], NumberStyles.Number, CultureInfo.InvariantCulture, out l) && double.TryParse(thickness[1], NumberStyles.Number, CultureInfo.InvariantCulture, out t))
-							return new Thickness(l, t);
-						break;
-					case 4:
-						if (double.TryParse(thickness[0], NumberStyles.Number, CultureInfo.InvariantCulture, out l) && double.TryParse(thickness[1], NumberStyles.Number, CultureInfo.InvariantCulture, out t) &&
-							double.TryParse(thickness[2], NumberStyles.Number, CultureInfo.InvariantCulture, out r) && double.TryParse(thickness[3], NumberStyles.Number, CultureInfo.InvariantCulture, out b))
-							return new Thickness(l, t, r, b);
-						break;
+				if (thickness.Length == 1 && thickness[0].Trim().Contains(" "))
+					thickness = value.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+				switch (thickness.Length) {
+				case 1:
+					if (double.TryParse(thickness[0], NumberStyles.Number, CultureInfo.InvariantCulture, out l))
+						return new Thickness(l);
+					break;
+				case 2:
+					if (double.TryParse(thickness[0], NumberStyles.Number, CultureInfo.InvariantCulture, out l) && double.TryParse(thickness[1], NumberStyles.Number, CultureInfo.InvariantCulture, out t))
+						return new Thickness(l, t);
+					break;
+				case 4:
+					if (double.TryParse(thickness[0], NumberStyles.Number, CultureInfo.InvariantCulture, out l) && double.TryParse(thickness[1], NumberStyles.Number, CultureInfo.InvariantCulture, out t) &&
+						double.TryParse(thickness[2], NumberStyles.Number, CultureInfo.InvariantCulture, out r) && double.TryParse(thickness[3], NumberStyles.Number, CultureInfo.InvariantCulture, out b))
+						return new Thickness(l, t, r, b);
+					break;
 				}
 			}
 

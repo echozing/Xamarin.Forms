@@ -69,7 +69,7 @@ namespace Xamarin.Forms.StyleSheets
 				else {
 					object value;
 					if (!convertedValues.TryGetValue(decl, out value))
-						convertedValues[decl] = (value = Convert(decl.Value, property));
+						convertedValues[decl] = (value = Convert(styleable, decl.Value, property));
 					styleable.SetValue(property, value, fromStyle: true);
 				}
 			}
@@ -83,11 +83,12 @@ namespace Xamarin.Forms.StyleSheets
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		static object Convert(object value, BindableProperty property)
+		static object Convert(object target, object value, BindableProperty property)
 		{
 			Func<MemberInfo> minforetriever = () =>    property.DeclaringType.GetRuntimeProperty(property.PropertyName) as MemberInfo
 													?? property.DeclaringType.GetRuntimeMethod("Get" + property.PropertyName, new[] { typeof(BindableObject) }) as MemberInfo;
-			return value.ConvertTo(property.ReturnType, minforetriever, null);
+			var serviceProvider = new StyleSheetServiceProvider(target, property);
+			return value.ConvertTo(property.ReturnType, minforetriever, serviceProvider);
 		}
 
 		public void UnApply(IStylable styleable)
