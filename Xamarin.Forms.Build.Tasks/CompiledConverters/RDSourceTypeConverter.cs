@@ -12,7 +12,6 @@ using Xamarin.Forms.Xaml;
 
 namespace Xamarin.Forms.Core.XamlC
 {
-
 	class RDSourceTypeConverter : ICompiledTypeConverter
 	{
 		public IEnumerable<Instruction> ConvertFromString(string value, ILContext context, BaseNode node)

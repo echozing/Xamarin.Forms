@@ -49,7 +49,7 @@ namespace Xamarin.Forms.StyleSheets
 				if (unchecked((char)next) == '*')
 					hasStar = true;
 				else if (hasStar && unchecked((char)next) == '/')
-					return Peek(); //recursively call self for comments followign comments
+					return Peek(); //recursively call self for comments following comments
 				else
 					hasStar = false;
 			}
@@ -88,7 +88,7 @@ namespace Xamarin.Forms.StyleSheets
 				if (unchecked((char)next) == '*')
 					hasStar = true;
 				else if (hasStar && unchecked((char)next) == '/')
-					return Read(); //recursively call self for comments followign comments
+					return Read(); //recursively call self for comments following comments
 				else
 					hasStar = false;
 			}
