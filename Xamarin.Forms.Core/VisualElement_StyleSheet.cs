@@ -23,8 +23,9 @@ namespace Xamarin.Forms
 			if (styleAttribute.BindableProperty != null)
 				return styleAttribute.BindableProperty;
 
-			var bpField = GetType().GetField(styleAttribute.BindablePropertyName);
-			if (bpField == null || !bpField.IsStatic)
+			var propertyOwnerType = styleAttribute.PropertyOwnerType ?? GetType();
+			var bpField = propertyOwnerType.GetField(styleAttribute.BindablePropertyName, BindingFlags.Public|BindingFlags.Static| BindingFlags.FlattenHierarchy);
+			if (bpField == null)
 				return null;
 
 			return (styleAttribute.BindableProperty = bpField.GetValue(null) as BindableProperty);

@@ -8,6 +8,7 @@ namespace Xamarin.Forms.StyleSheets
 		public string CssPropertyName { get; }
 		public string BindablePropertyName { get; }
 		public Type TargetType { get; }
+		public Type PropertyOwnerType { get; set; }
 		public BindableProperty BindableProperty { get; set; }
 
 

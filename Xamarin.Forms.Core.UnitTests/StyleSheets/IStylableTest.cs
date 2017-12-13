@@ -47,5 +47,13 @@ namespace Xamarin.Forms.StyleSheets.UnitTests
 			var bp = ((IStylable)grid).GetProperty("color");
 			Assert.Null(bp);
 		}
+
+		[TestCase]
+		public void GetPaddingLeft()
+		{
+			var frame = new Frame();
+			var bp = ((IStylable)frame).GetProperty("padding-left");
+			Assert.That(bp, Is.SameAs(PaddingElement.PaddingLeftProperty));
+		}
 	}
 }
